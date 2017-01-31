@@ -1,4 +1,4 @@
-package IA2.TicTacToe;
+﻿package IA2.TicTacToe;
 
 import java.awt.PageAttributes.PrintQualityType;
 import java.lang.reflect.Array;
@@ -41,9 +41,9 @@ public class Main
     	**/
     	//B2.setOwner(2);
     	//A3.setOwner(2);
-    	
+    	System.out.println("A1|A2|A3\nB1|B2|B3\nC1|C2|C3\n");
     	while(true){
-    		printTable();
+    		
     		userInput();
     		play();
     		printTable();
@@ -90,9 +90,38 @@ public class Main
     	
 	    		
     	}
+    	
+    	if (checkWon(1)){
+    		System.out.println("________________\n Você ganhou\n");
+    		reset();
+    	}
+    	
     	return true;
     	
     }
+    
+    
+    public static boolean checkWon(int ID){
+    	
+    	return (checkWonOnSet(A1, A2, A3, ID) ||
+    			checkWonOnSet(B1, B2, B3, ID) ||
+    			checkWonOnSet(C1, C2, C3, ID) ||   	
+    			
+    			checkWonOnSet(A1, B1, C1, ID) ||    			
+    			checkWonOnSet(A2, B2, C2, ID) ||
+    			checkWonOnSet(A3, B3, C3, ID) ||
+    			
+    			checkWonOnSet(A1, B2, C3, ID) ||
+    			checkWonOnSet(A3, B2, C1, ID));
+    }
+    
+    private static boolean checkWonOnSet(Cell cell1, Cell cell2, Cell cell3, int ID){
+    	return(cell1.getOwner() == ID &&  cell2.getOwner() == ID &&  cell3.getOwner() == ID);
+    }
+    
+    
+    
+    
     public static void reset(){
     	
     	printTable();
@@ -150,10 +179,10 @@ public class Main
     			checkWinOnSet(A3, B2, C1, ID);
     			
     			if (won){
+    				System.out.println("________________\n Você perdeu\n");
     				reset();
     				return true;
     			}
-    			System.out.println("Não encontrou vitória\n");
     			return false;
     			
     			
